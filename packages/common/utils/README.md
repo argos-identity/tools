@@ -2,12 +2,16 @@
 
 공통으로 사용되는 유틸리티 함수들을 제공하는 패키지입니다.
 
-## 설치
+## 목차
 
-```bash
-# .npmrc 파일에 GitHub Packages 설정 필요
-npm install @argos-identity/utils
-```
+- [사용 방법](#사용-방법)
+  - [retry - 비동기 함수 재시도 유틸리티](#retry---비동기-함수-재시도-유틸리티)
+- [각 패키지 설치 예시](#각-패키지-설치-예시)
+  - [Github Packages 설정](#github-packages-설정)
+- [패키지 관리 방법](#패키지-관리-방법)
+  - [버전 업데이트](#버전-업데이트)
+  - [테스트 실행](#테스트-실행)
+  - [테스트 추가](#테스트-추가)
 
 ## 사용 방법
 
@@ -44,6 +48,66 @@ const result = await retry(
   },
 );
 ```
+
+## 각 패키지 설치 예시
+
+### Github Packages 설정
+
+1. github 개인 액세스 토큰(PAT) 발급
+
+   - 위치 : profile > settings > developer settings > personal access tokens
+   - 권한 선택 : 패키지 관련 작업을 위해서는 최소한 다음 권한이 필요합니다:
+
+     - read:packages: 패키지 다운로드 권한
+     - write:packages: 패키지 업로드 권한
+     - delete:packages: 패키지 삭제 권한 (선택적)
+     - repo: private 저장소 접근 권한
+
+2. 환경 변수로 설정
+
+   macOS/Linux:
+
+   ```bash
+   # 현재 터미널 세션에만 적용
+    export GITHUB_TOKEN=your_token_here
+
+    # 영구적으로 적용 (Bash)
+    echo 'export GITHUB_TOKEN=your_token_here' >> ~/.bashrc
+    source ~/.bashrc
+
+    # 영구적으로 적용 (Zsh)
+    echo 'export GITHUB_TOKEN=your_token_here' >> ~/.zshrc
+    source ~/.zshrc
+   ```
+
+   Windows (PowerShell):
+
+   ```bash
+     # 현재 세션에만 적용
+
+     $env:GITHUB_TOKEN = "your_token_here"
+
+     # 영구적으로 적용 (사용자 환경 변수)
+
+     [Environment]::SetEnvironmentVariable("GITHUB_TOKEN", "your_token_here", "User")
+   ```
+
+3. 프로젝트 root에 .npmrc 생성
+
+   ```bash
+   //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+   @argos-identity:registry=https://npm.pkg.github.com
+   ```
+
+4. 필요한 패키지 설치
+
+   ```bash
+   # common/utils 패키지 설치
+   npm install @argos-identity/utils
+
+   # common/crypto 패키지 설치
+   npm install @argos-identity/crypto
+   ```
 
 ## 패키지 관리 방법
 
