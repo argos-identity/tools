@@ -134,12 +134,13 @@ export async function retry<T>(fn: () => Promise<T>, options: RetryOptions<T> = 
         onRetry(attemptCount + 1, finalError);
       }
     }
-
     const delay = calculateDelay(delayMs, attemptCount, exponentialBackoff);
-    await new Promise((resolve) => setTimeout(resolve, delay));
+    await new Promise(resolve => setTimeout(resolve, delay));
   }
 
-  if (finalError) throw finalError;
+  if (finalError) {
+    throw finalError;
+  }
   if (finalResult === undefined) {
     throw new Error('Unexpected: No result or error after retry attempts');
   }
