@@ -72,7 +72,7 @@ describe('retry', () => {
     const options: RetryOptions<{ status: string }> = {
       maxRetries: 3,
       delayMs: 1,
-      isSuccess: (result) => result.status === 'completed',
+      isSuccess: result => result.status === 'completed',
     };
 
     // when
@@ -91,7 +91,7 @@ describe('retry', () => {
     const options: RetryOptions<string> = {
       maxRetries: 3,
       delayMs: 1,
-      shouldAbort: (error) => error.message === '즉시 중단 에러',
+      shouldAbort: error => error.message === '즉시 중단 에러',
     };
 
     // when & then
