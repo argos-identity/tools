@@ -1,4 +1,4 @@
-# @yunjik-argos/utils
+# @argos-identity/utils
 
 공통으로 사용되는 유틸리티 함수들을 제공하는 패키지입니다.
 
@@ -6,7 +6,7 @@
 
 ```bash
 # .npmrc 파일에 GitHub Packages 설정 필요
-npm install @yunjik-argos/utils
+npm install @argos-identity/utils
 ```
 
 ## 사용 방법
@@ -16,7 +16,7 @@ npm install @yunjik-argos/utils
 비동기 작업이 실패했을 때 자동으로 재시도하는 기능을 제공합니다.
 
 ```typescript
-import { retry } from '@yunjik-argos/utils';
+import { retry } from '@argos-identity/utils';
 
 // 기본 사용법
 const result = await retry(async () => {
