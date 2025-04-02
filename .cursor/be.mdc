@@ -1,0 +1,108 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+You are an expert in **Node.js, Express, JavaScript**.
+
+## Key Principles
+- Simplicity and Readability: Write concise, straightforward code that's easy to understand.
+- Performance and Maintainability: Consider performance without sacrificing readability, prioritizing structures that are easy to maintain.
+- Testability: Design each layer and function to be independently testable.
+- Reusability: Create reusable components and functions throughout the codebase.
+
+## Code Guidelines
+### Programming Paradigms
+- Functional and Immutable Style: Prefer functional, immutable style unless it becomes significantly more verbose.
+- Pure Functions: Write functions as pure functions to minimize side effects.
+- Single Responsibility: Functions should follow the single responsibility principle, performing only one task.
+
+### Export Rules
+- For ECMAScript module system (ESM) support, add "type": "module" to package.json and use import/export syntax as needed.
+
+### Code Structure
+- Early Returns: Use early returns to avoid nested conditions and improve readability.
+- Modularization: Avoid code duplication through modularization strategies.
+- Constant: Avoid magic numbers and define constants.
+- Higher-order Functions: Use higher-order functions (map, filter, reduce, etc.) to avoid function nesting.
+- DRY Code: Write correct, best practice code that doesn't repeat itself.
+- Minimal Changes: Only modify code related to the task at hand. Accomplish goals with minimal code changes.
+- Parallel Processing: Use Promise.all for operations that can be processed in parallel.
+
+
+### Naming Conventions
+- Variable Naming: Use descriptive variable names with auxiliary verbs (e.g., isActive, hasPermission).
+- Method Naming by Layer:
+  - Controllers: Use HTTP/REST-oriented names that reflect actions on resources (e.g., getUsers, createUser, updateUser, deleteUser, searchUsers).
+  - Services: Use business operation-focused names that describe intentions rather than technical details (e.g., findUserById, processUserRegistration, validateUserCredentials, updateUserProfile).
+  - Repositories: Use data persistence-oriented names that clearly indicate database operations (e.g., findById, findByEmail, save, update, remove, existsByEmail, countByStatus).
+- Layer-Specific Naming:
+  - Controllers: {domain}-controller.js
+  - Services: {domain}-service.js
+  - Repositories: {domain}-repository.js
+- Directory Naming: Use lowercase with dashes for directories (e.g., utils, response-handlers).
+
+### Code Conventions
+```json
+"codingConventions": {
+  "naming": {
+    "variables": "camelCase",
+    "classes": "PascalCase",
+    "constants": "UPPER_SNAKE_CASE",
+    "files": "kebab-case.js"
+  },
+  "indentation": "2 spaces",
+  "stringQuotes": "single",
+  "semicolons": true,
+  "maxLineLength": 100,
+}
+```
+
+## Variable Declarations
+
+- **Use const and let**: Avoid `var` for variable declarations.
+- **Prefer const**: Use `const` for values that don't need to be reassigned.
+- **Avoid global variables**: Minimize use of global scope variables.
+- **Initialize variables at declaration**: Declare and initialize variables in the same statement when possible.
+- **Use meaningful variable names**: Names should clearly indicate purpose or content.
+
+## Objects and Arrays
+
+- **Use object/array shorthand notation**: Leverage ES6 shorthand for object property definitions.
+- **Use spread operators**: Use spread syntax for shallow copying objects and arrays.
+- **Use object destructuring**: Destructure objects when accessing multiple properties.
+- **Use array methods**: Prefer map, filter, reduce, etc. over traditional for loops.
+- **Avoid mutating arguments**: Don't modify function arguments directly.
+
+## ES6+ Features
+
+- **Use template literals**: For string interpolation and multi-line strings.
+- **Use optional chaining**: Use `?.` operator for potentially undefined properties.
+- **Use nullish coalescing**: Use `??` operator instead of `||` when appropriate.
+- **Use async/await**: Prefer async/await over callbacks and Promise chains.
+- **Use rest parameters**: Use rest syntax instead of arguments object.
+
+## Imports and Exports
+
+- **Use named exports**: Prefer named exports over default exports.
+- **Group imports**: Organize imports by type/source.
+- **Sort imports**: Keep imports in consistent order.
+
+## Commit Rule
+```json
+"commitRules": {
+  "formats": {
+    "commitMessage": "[commitType]: [description]",
+    "commitType": ["feat", "fix", "chore", "refactor", "test", "build", "ci", "docs"],
+    "description": "korean",
+    "commitBody": "Simply create key changes"
+  },
+  "examples": [
+    "feat: 사용자 프로필 API 엔드포인트 구현",
+    "fix: WebSocket 처리에서 메모리 누수 방지",
+    "refactor: 오류 처리를 중앙화된 미들웨어로 마이그레이션",
+    "chore: Docker 빌드 프로세스 최적화"
+  ]
+}
+```
+```
