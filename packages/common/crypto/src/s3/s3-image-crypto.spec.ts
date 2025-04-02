@@ -34,13 +34,13 @@ describe('S3ImageCrypto', () => {
 
     // S3Client 모킹
     mockS3Client = {
-      send: jest.fn<Promise<any>, [any]>().mockResolvedValue({}),
+      send: jest.fn<Promise<unknown>, [unknown]>().mockResolvedValue({}),
     } as unknown as jest.Mocked<S3Client>;
     (S3Client as unknown as jest.Mock).mockImplementation(() => mockS3Client);
 
     // KMSClient 모킹
     mockKmsClient = {
-      send: jest.fn<Promise<any>, [any]>().mockResolvedValue({}),
+      send: jest.fn<Promise<unknown>, [unknown]>().mockResolvedValue({}),
     } as unknown as jest.Mocked<KMSClient>;
     (KMSClient as unknown as jest.Mock).mockImplementation(() => mockKmsClient);
 
@@ -111,13 +111,13 @@ describe('S3ImageCrypto', () => {
       // KMS 응답 모킹
       mockKmsClient.send.mockImplementation(command => {
         if (command instanceof GenerateDataKeyCommand) {
-          return Promise.resolve({
+          return {
             Plaintext: Buffer.from('일반_텍스트_키'),
             CiphertextBlob: Buffer.from('암호화된_키'),
             KeyId: 'test-key-id',
-          });
+          };
         }
-        return Promise.resolve({});
+        return {};
       });
 
       const imageCrypto = new S3ImageCrypto(defaultOptions);
@@ -125,7 +125,9 @@ describe('S3ImageCrypto', () => {
 
       // 결과 검증
       expect(result).toBe(s3Key);
-      expect(mockKmsClient.send).toHaveBeenCalledWith(expect.any(GenerateDataKeyCommand));
+      const sendMethod = mockKmsClient.send;
+      expect(sendMethod).toHaveBeenCalledWith(expect.any(GenerateDataKeyCommand));
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(crypto.createCipheriv).toHaveBeenCalled();
       expect(Upload).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -158,13 +160,13 @@ describe('S3ImageCrypto', () => {
       // KMS 응답 모킹
       mockKmsClient.send.mockImplementation(command => {
         if (command instanceof GenerateDataKeyCommand) {
-          return Promise.resolve({
+          return {
             Plaintext: Buffer.from('일반_텍스트_키'),
             CiphertextBlob: Buffer.from('암호화된_키'),
             KeyId: 'test-key-id',
-          });
+          };
         }
-        return Promise.resolve({});
+        return {};
       });
 
       // 업로드 실패 모킹
@@ -193,25 +195,25 @@ describe('S3ImageCrypto', () => {
 
       mockS3Client.send.mockImplementation(command => {
         if (command instanceof GetObjectCommand) {
-          return Promise.resolve({
+          return {
             Body: mockStream,
             Metadata: {
               'x-amz-meta-encryption': JSON.stringify(mockMetadata),
             },
-          });
+          };
         }
-        return Promise.resolve({});
+        return {};
       });
 
       // KMS 응답 모킹
       mockKmsClient.send.mockImplementation(command => {
         if (command instanceof DecryptCommand) {
-          return Promise.resolve({
+          return {
             Plaintext: Buffer.from('복호화된_키'),
             KeyId: 'test-key-id',
-          });
+          };
         }
-        return Promise.resolve({});
+        return {};
       });
 
       const imageCrypto = new S3ImageCrypto(defaultOptions);
@@ -225,7 +227,6 @@ describe('S3ImageCrypto', () => {
     });
 
     it('객체가 없을 경우 오류를 던집니다', async () => {
-      // 객체 없음 모킹
       // @ts-expect-error - Jest mock 타입 오류 무시
       mockS3Client.send.mockResolvedValueOnce({
         Body: undefined,
@@ -239,7 +240,6 @@ describe('S3ImageCrypto', () => {
     });
 
     it('메타데이터가 없을 경우 오류를 던집니다', async () => {
-      // 메타데이터 없음 모킹
       const mockStream = new Readable();
       mockStream.push(Buffer.from('암호화된_데이터'));
       mockStream.push(null);
