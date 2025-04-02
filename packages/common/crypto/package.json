@@ -1,0 +1,44 @@
+{
+  "name": "@argos-identity/crypto",
+  "version": "0.0.1",
+  "description": "공통 암호화 패키지",
+  "license": "UNLICENSED",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/argos-identity/tools.git",
+    "directory": "packages/common/crypto"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "lint": "eslint src --ext .ts",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-kms": "^3.777.0",
+    "@aws-sdk/client-s3": "^3.779.0",
+    "@aws-sdk/lib-storage": "^3.779.0"
+  }
+}
