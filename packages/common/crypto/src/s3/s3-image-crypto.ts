@@ -252,9 +252,9 @@ export class S3ImageCrypto {
   }
 
   /**
-   * S3에서 암호화된 이미지를 다운로드 후 복호화
+   * S3에서 이미지를 다운로드 후 필요시 복호화
    * @param s3Key S3 객체 키(경로)
-   * @returns 복호화된 이미지 버퍼
+   * @returns 이미지 버퍼 (암호화된 경우 복호화됨)
    */
   async downloadAndDecrypt(s3Key: string): Promise<Buffer> {
     try {
@@ -266,23 +266,25 @@ export class S3ImageCrypto {
         }),
       );
 
-      if (!response.Body || !response.Metadata) {
-        throw new Error('S3에서 객체를 찾을 수 없거나 메타데이터가 없습니다');
+      if (!response.Body) {
+        throw new Error('S3에서 객체를 찾을 수 없습니다');
       }
 
       // 스트림을 버퍼로 변환
-      const encryptedData = await this.streamToBuffer(response.Body as Readable);
+      const data = await this.streamToBuffer(response.Body as Readable);
 
-      // 메타데이터 파싱
-      const encryptionMetadata = response.Metadata['x-amz-meta-encryption'];
-      if (!encryptionMetadata) {
-        throw new Error('암호화 메타데이터가 없습니다');
+      // 메타데이터가 없거나 암호화 메타데이터가 없으면 암호화되지 않은 파일로 판단
+      if (!response.Metadata || !response.Metadata['x-amz-meta-encryption']) {
+        return data;
       }
 
-      const metadata = JSON.parse(String(encryptionMetadata)) as EncryptionMetadata;
+      // 메타데이터 파싱
+      const metadata = JSON.parse(
+        String(response.Metadata['x-amz-meta-encryption']),
+      ) as EncryptionMetadata;
 
       // 이미지 복호화
-      return this.decryptImage(encryptedData, metadata);
+      return this.decryptImage(data, metadata);
     } catch (error) {
       throw new Error(
         `다운로드 및 복호화 실패: ${error instanceof Error ? error.message : String(error)}`,
