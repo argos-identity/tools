@@ -51,6 +51,6 @@ jobs:
         run: npm run build
 
       - name: Release packages
-        run: npx lerna publish from-package --yes
+        run: npx lerna publish from-package --yes  --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
