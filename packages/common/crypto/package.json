@@ -1,6 +1,6 @@
 {
   "name": "@argos-identity/crypto",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "공통 암호화 패키지",
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -18,7 +18,7 @@
   ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   },
   "repository": {
     "type": "git",

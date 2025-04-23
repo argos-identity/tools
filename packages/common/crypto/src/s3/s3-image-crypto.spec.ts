@@ -235,25 +235,60 @@ describe('S3ImageCrypto', () => {
 
       const imageCrypto = new S3ImageCrypto(defaultOptions);
       await expect(imageCrypto.downloadAndDecrypt(s3Key)).rejects.toThrow(
-        '다운로드 및 복호화 실패: S3에서 객체를 찾을 수 없거나 메타데이터가 없습니다',
+        '다운로드 및 복호화 실패: S3에서 객체를 찾을 수 없습니다',
       );
     });
 
-    it('메타데이터가 없을 경우 오류를 던집니다', async () => {
+    it('암호화되지 않은 이미지도 다운로드합니다', async () => {
       const mockStream = new Readable();
-      mockStream.push(Buffer.from('암호화된_데이터'));
+      mockStream.push(Buffer.from('암호화되지_않은_데이터'));
       mockStream.push(null);
 
-      // @ts-expect-error - Jest mock 타입 오류 무시
-      mockS3Client.send.mockResolvedValueOnce({
-        Body: mockStream,
-        Metadata: {},
+      // 메타데이터가 없는 응답을 모킹
+      mockS3Client.send.mockImplementation(command => {
+        if (command instanceof GetObjectCommand) {
+          return {
+            Body: mockStream,
+            Metadata: {}, // 메타데이터는 있지만 암호화 메타데이터가 없음
+          };
+        }
+        return {};
       });
 
       const imageCrypto = new S3ImageCrypto(defaultOptions);
-      await expect(imageCrypto.downloadAndDecrypt(s3Key)).rejects.toThrow(
-        '다운로드 및 복호화 실패: 암호화 메타데이터가 없습니다',
-      );
+      const result = await imageCrypto.downloadAndDecrypt(s3Key);
+
+      // 결과 검증
+      expect(result).toEqual(expect.any(Buffer));
+      expect(mockS3Client.send).toHaveBeenCalledWith(expect.any(GetObjectCommand));
+      expect(mockKmsClient.send).not.toHaveBeenCalled(); // KMS API 호출되지 않아야 함
+      expect(crypto.createDecipheriv).not.toHaveBeenCalled(); // 복호화되지 않아야 함
+    });
+
+    it('메타데이터 객체가 없는 경우에도 이미지를 다운로드합니다', async () => {
+      const mockStream = new Readable();
+      mockStream.push(Buffer.from('암호화되지_않은_데이터'));
+      mockStream.push(null);
+
+      // 메타데이터 자체가 없는 응답을 모킹
+      mockS3Client.send.mockImplementation(command => {
+        if (command instanceof GetObjectCommand) {
+          return {
+            Body: mockStream,
+            Metadata: undefined, // 메타데이터 객체 자체가 없음
+          };
+        }
+        return {};
+      });
+
+      const imageCrypto = new S3ImageCrypto(defaultOptions);
+      const result = await imageCrypto.downloadAndDecrypt(s3Key);
+
+      // 결과 검증
+      expect(result).toEqual(expect.any(Buffer));
+      expect(mockS3Client.send).toHaveBeenCalledWith(expect.any(GetObjectCommand));
+      expect(mockKmsClient.send).not.toHaveBeenCalled(); // KMS API 호출되지 않아야 함
+      expect(crypto.createDecipheriv).not.toHaveBeenCalled(); // 복호화되지 않아야 함
     });
 
     it('데이터 키 복호화 실패 시 오류를 던집니다', async () => {
