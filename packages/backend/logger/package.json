@@ -1,6 +1,6 @@
 {
   "name": "@argos-identity/logger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "백엔드 로거 패키지",
   "license": "UNLICENSED",
   "main": "dist/index.js",
@@ -11,6 +11,21 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core/index.mjs",
+      "require": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./express": {
+      "import": "./dist/express/index.mjs",
+      "require": "./dist/express/index.js",
+      "types": "./dist/express/index.d.ts"
+    },
+    "./lambda": {
+      "import": "./dist/lambda/index.mjs",
+      "require": "./dist/lambda/index.js",
+      "types": "./dist/lambda/index.d.ts"
     }
   },
   "files": [
