@@ -11,6 +11,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./s3": {
+      "import": "./dist/s3/index.mjs",
+      "require": "./dist/s3/index.js",
+      "types": "./dist/s3/index.d.ts"
     }
   },
   "files": [
