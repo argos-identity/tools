@@ -3,29 +3,30 @@
   "version": "0.0.2",
   "description": "백엔드 로거 패키지",
   "license": "UNLICENSED",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     },
     "./core": {
+      "types": "./dist/core/index.d.ts",
       "import": "./dist/core/index.mjs",
-      "require": "./dist/core/index.js",
-      "types": "./dist/core/index.d.ts"
+      "require": "./dist/core/index.js"
     },
     "./express": {
+      "types": "./dist/express/index.d.ts",
       "import": "./dist/express/index.mjs",
-      "require": "./dist/express/index.js",
-      "types": "./dist/express/index.d.ts"
+      "require": "./dist/express/index.js"
     },
     "./lambda": {
+      "types": "./dist/lambda/index.d.ts",
       "import": "./dist/lambda/index.mjs",
-      "require": "./dist/lambda/index.js",
-      "types": "./dist/lambda/index.d.ts"
+      "require": "./dist/lambda/index.js"
     }
   },
   "files": [
@@ -41,7 +42,7 @@
     "directory": "packages/backend/logger"
   },
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsup",
     "lint": "eslint src --ext .ts",
     "test": "jest"
   },
@@ -59,6 +60,7 @@
     "jest": "^29.7.0",
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.2",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.0"
   }
 }
