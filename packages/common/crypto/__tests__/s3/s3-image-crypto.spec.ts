@@ -1,4 +1,8 @@
-import { S3ImageCrypto, S3ImageCryptoOptions, EncryptionMetadata } from './s3-image-crypto';
+import {
+  S3ImageCrypto,
+  S3ImageCryptoOptions,
+  EncryptionMetadata,
+} from '../../src/s3/s3-image-crypto';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { KMSClient, GenerateDataKeyCommand, DecryptCommand } from '@aws-sdk/client-kms';
 import { Upload } from '@aws-sdk/lib-storage';
