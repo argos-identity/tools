@@ -1,4 +1,4 @@
-import { retry, RetryOptions } from './retry';
+import { retry, RetryOptions } from '../../src/retry';
 
 describe('retry', () => {
   // retry 내부의 지연 시간을 줄이기 위해 테스트에 앞서 setTimeout을 mocking합니다.
