@@ -2,7 +2,7 @@
   "name": "@argos-identity/utils",
   "version": "0.1.1",
   "description": "공통 유틸리티 패키지",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
