@@ -1,6 +1,6 @@
 {
   "name": "@argos-identity/crypto",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "공통 암호화 패키지",
   "license": "MIT",
   "main": "./dist/index.js",
