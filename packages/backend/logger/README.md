@@ -1,5 +1,7 @@
 # @argos-identity/logger
 
+[![npm version](https://img.shields.io/npm/v/@argos-identity/logger.svg)](https://www.npmjs.com/package/@argos-identity/logger)
+
 백엔드 애플리케이션을 위한 공통 로깅 패키지입니다. Express와 AWS Lambda 환경을 모두 지원하며, 요청 추적, 에러 로깅, 성능 측정 등 다양한 기능을 제공합니다.
 
 ## 목차

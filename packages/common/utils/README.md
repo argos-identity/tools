@@ -1,5 +1,7 @@
 # @argos-identity/utils
 
+[![npm version](https://img.shields.io/npm/v/@argos-identity/utils.svg)](https://www.npmjs.com/package/@argos-identity/utils)
+
 공통으로 사용되는 유틸리티 함수들을 제공하는 패키지입니다.
 
 ## 목차
