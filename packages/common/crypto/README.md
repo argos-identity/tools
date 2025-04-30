@@ -1,5 +1,7 @@
 # @argos-identity/crypto
 
+[![npm version](https://img.shields.io/npm/v/@argos-identity/crypto.svg)](https://www.npmjs.com/package/@argos-identity/crypto)
+
 공통으로 사용되는 암복호화 함수들을 제공하는 패키지입니다.
 
 ## 목차

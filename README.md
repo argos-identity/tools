@@ -52,6 +52,8 @@ tools/
 
 #### @argos-identity/utils
 
+[![npm version](https://img.shields.io/npm/v/@argos-identity/utils.svg)](https://www.npmjs.com/package/@argos-identity/utils)
+
 공통으로 사용되는 유틸리티 함수들을 제공하는 패키지입니다. 주요 기능:
 
 - **retry**: 비동기 함수 재시도 유틸리티
@@ -60,6 +62,8 @@ tools/
 [자세한 문서 보기](./packages/common/utils/README.md)
 
 #### @argos-identity/crypto
+
+[![npm version](https://img.shields.io/npm/v/@argos-identity/crypto.svg)](https://www.npmjs.com/package/@argos-identity/crypto)
 
 암호화 및 복호화 관련 유틸리티를 제공하는 패키지입니다. 주요 기능:
 
@@ -71,6 +75,8 @@ tools/
 ### 백엔드 패키지
 
 #### @argos-identity/logger
+
+[![npm version](https://img.shields.io/npm/v/@argos-identity/logger.svg)](https://www.npmjs.com/package/@argos-identity/logger)
 
 백엔드 애플리케이션을 위한 공통 로깅 패키지입니다. 주요 기능:
 
