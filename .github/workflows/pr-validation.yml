@@ -29,3 +29,35 @@ jobs:
 
       - name: Check linting
         run: npm run lint
+
+      - name: Setup Git for validation
+        run: |
+          git config --global user.name 'GitHub PR Validation'
+          git config --global user.email 'github-validation@github.com'
+
+      - name: Validate changed packages
+        run: |
+          # 변경된 패키지가 있는지 확인
+          CHANGED=$(npx lerna changed --json 2>/dev/null || echo "[]")
+          if [ "$CHANGED" != "[]" ]; then
+            echo "Changes detected in the following packages:"
+            echo "$CHANGED" | jq -r '.[].name'
+            
+            # lerna version 실행 시뮬레이션
+            echo "Simulating version bump process..."
+            # 임시 브랜치 생성
+            git checkout -b temp-validation-branch
+            
+            # 실제 version 실행 (임시 브랜치에서)
+            npx lerna version patch --no-push --yes
+            
+            echo "✅ Lerna version process completed successfully"
+            
+            # 검증 완료 후 변경사항 폐기
+            git checkout -
+            git branch -D temp-validation-branch
+          else
+            echo "No package changes detected to validate"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
