@@ -2,9 +2,11 @@
   "version": "independent",
   "npmClient": "npm",
   "command": {
+    "version": {
+      "message": "chore(release): publish [skip ci]"
+    },
     "publish": {
-      "registry": "https://npm.pkg.github.com",
-      "message": "chore(release): publish"
+      "registry": "https://registry.npmjs.org/"
     },
     "bootstrap": {
       "npmClientArgs": ["--no-package-lock"]

@@ -32,10 +32,17 @@ jobs:
   publish:
     needs: test-and-build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Setup Git
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions@github.com'
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -49,6 +56,21 @@ jobs:
 
       - name: Build packages
         run: npm run build
+
+      - name: Auto version bump
+        run: |
+          # 변경된 패키지가 있는지 확인
+          if npx lerna changed &>/dev/null; then
+            echo "Changes detected, bumping versions..."
+            # 패치 버전 자동 업데이트
+            npx lerna version patch --yes --no-push
+            # 변경사항 푸시
+            git push --follow-tags
+          else
+            echo "No changes detected in packages"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release packages
         run: npx lerna publish from-package --yes
