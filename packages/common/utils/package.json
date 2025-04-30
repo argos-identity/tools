@@ -1,6 +1,6 @@
 {
   "name": "@argos-identity/utils",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "공통 유틸리티 패키지",
   "license": "MIT",
   "main": "./dist/index.js",
