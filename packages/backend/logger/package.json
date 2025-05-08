@@ -1,6 +1,6 @@
 {
   "name": "@argos-identity/logger",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "백엔드 로거 패키지",
   "license": "MIT",
   "main": "./dist/index.js",
