@@ -130,5 +130,4 @@ npm install @argos-identity/logger
 
 ---
 
-© 2025 Argos Identity. All rights reserved.
-이 코드는 Argos Identity의 독점 소프트웨어이며, 명시적인 허가 없이 외부에 공유할 수 없습니다.
+MIT © Argos Identity, See [LICENSE](https://github.com/argos-identity/tools/blob/main/LICENSE.md) for details.
