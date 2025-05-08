@@ -152,5 +152,3 @@ npm run lint
 ```
 
 ---
-
-© 2025 Argos Identity. All rights reserved.

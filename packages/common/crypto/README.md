@@ -217,5 +217,3 @@ npm test
 ```
 
 ---
-
-© 2025 Argos Identity. All rights reserved.
